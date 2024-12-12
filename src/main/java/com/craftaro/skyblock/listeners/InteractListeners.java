@@ -3,6 +3,7 @@ package com.craftaro.skyblock.listeners;
 import com.craftaro.core.compatibility.CompatibleHand;
 import com.craftaro.core.compatibility.CompatibleMaterial;
 import com.craftaro.core.hooks.LogManager;
+import com.craftaro.skyblock.playerdata.PlayerData;
 import com.craftaro.third_party.com.cryptomorin.xseries.XBlock;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.third_party.com.cryptomorin.xseries.XSound;
@@ -170,6 +171,14 @@ public class InteractListeners implements Listener {
             return;
         }
 
+        // Check if the player is previewing an island and cancel interactions.
+        PlayerData data = this.plugin.getPlayerDataManager().getPlayerData(player);
+        if (data != null && data.isPreview()) {
+                // Cancel the interaction
+                event.setCancelled(true);
+                this.plugin.getMessageManager().sendMessage(player, "You cannot interact with blocks while previewing an island.");
+        }
+
         // Check permissions.
         if (!this.plugin.getPermissionManager().processPermission(event, player, island)) {
             return;
@@ -231,23 +240,36 @@ public class InteractListeners implements Listener {
                     // Add block to stackable
                     int maxStackSize = getStackLimit(player, material.get());
 
+                    //Fixing Dupe that was found when stack hits the limit and player gets whole (applied stack) back.
                     if (stackable == null) {
-                        stackableManager.addStack(stackable = new Stackable(location, blockType.get(), maxStackSize));
-                        stackable.setSize(itemAmount + 1);
-                        if (stackable.isMaxSize()) {
+                        stackable = new Stackable(location, blockType.get(), maxStackSize);
+                        stackableManager.addStack(stackable);
+
+                        int spaceAvailable = stackable.getMaxSize() - stackable.getSize();
+                        if (itemAmount <= spaceAvailable) {
+                            stackable.setSize(stackable.getSize() + itemAmount);
+                        } else {
                             stackable.setSize(stackable.getMaxSize());
+                            int excessAmount = itemAmount - spaceAvailable;
+                            // Return the excess items to the player
+                            player.getInventory().addItem(new ItemStack(blockType.get().parseMaterial(), excessAmount));
                             event.setCancelled(true);
-                            return;
                         }
                     } else {
                         stackable.setMaxSize(maxStackSize);
-                        stackable.setSize(stackable.getSize() + itemAmount);
-                        if (stackable.isMaxSize()) {
+
+                        int spaceAvailable = stackable.getMaxSize() - stackable.getSize();
+                        if (itemAmount <= spaceAvailable) {
+                            stackable.setSize(stackable.getSize() + itemAmount);
+                        } else {
                             stackable.setSize(stackable.getMaxSize());
+                            int excessAmount = itemAmount - spaceAvailable;
+                            // Return the excess items to the player
+                            player.getInventory().addItem(new ItemStack(blockType.get().parseMaterial(), excessAmount));
                             event.setCancelled(true);
-                            return;
                         }
                     }
+
 
                     // Disables interaction
                     event.setCancelled(true);
@@ -291,7 +313,7 @@ public class InteractListeners implements Listener {
 
             }
 
-            // Check if the clicked block is outside of the border.
+            // Check if the clicked block is outside the border.
             WorldManager worldManager = this.plugin.getWorldManager();
             org.bukkit.block.Block clickedBlock = event.getClickedBlock();
             IslandWorld world = worldManager.getIslandWorld(clickedBlock.getWorld());

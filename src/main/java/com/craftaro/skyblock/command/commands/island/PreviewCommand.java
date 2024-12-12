@@ -99,7 +99,6 @@ public class PreviewCommand extends SubCommand {
                 }
 
                 soundManager.playSound(player, XSound.ENTITY_VILLAGER_NO);
-
                 return;
             }
             // Do not preview if user has an island
