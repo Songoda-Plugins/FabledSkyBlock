@@ -2,10 +2,10 @@ package com.craftaro.skyblock.utils.version;
 
 import com.craftaro.core.compatibility.MajorServerVersion;
 import com.craftaro.core.compatibility.ServerVersion;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.skyblock.utils.StringUtil;
 import org.bukkit.Material;
-import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -87,8 +87,8 @@ public enum SBiome {
      *
      * @return The Biome this SBiome represents, or null if it is not available in this server version
      */
-    public Biome getBiome() {
-        return !this.isAvailable() ? null : isPostVersion || this.legacyName == null ? Biome.valueOf(this.name()) : Biome.valueOf(this.legacyName);
+    public XBiome getBiome() {
+        return XBiome.of(this.name()).orElse(null);
     }
 
     /**

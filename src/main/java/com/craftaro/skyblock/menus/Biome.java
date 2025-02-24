@@ -1,6 +1,6 @@
 package com.craftaro.skyblock.menus;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.third_party.com.cryptomorin.xseries.XSound;
 import com.craftaro.skyblock.SkyBlock;
@@ -135,9 +135,10 @@ public class Biome {
 
                         @SuppressWarnings("deprecation")
                         SBiome selectedBiomeType = SBiome.getFromGuiIcon(is.getType(), is.getData().getData());
+                        XBiome biome = selectedBiomeType.getBiome();
 
                         cooldownManager.createPlayer(CooldownType.BIOME, player);
-                        biomeManager.setBiome(island, IslandWorld.NORMAL, CompatibleBiome.getBiome(selectedBiomeType.getBiome()), null);
+                        biomeManager.setBiome(island, IslandWorld.NORMAL, biome, null);
                         island.setBiome(selectedBiomeType.getBiome());
                         island.save();
 
@@ -154,7 +155,7 @@ public class Biome {
             });
 
             Island island = islandManager.getIsland(player);
-            org.bukkit.block.Biome islandBiome = island.getBiome();
+            XBiome islandBiome = island.getBiome();
             String islandBiomeName = island.getBiomeName();
 
             nInv.addItem(nInv.createItem(new ItemStack(Material.NAME_TAG),

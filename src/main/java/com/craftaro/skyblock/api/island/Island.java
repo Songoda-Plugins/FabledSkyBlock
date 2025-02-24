@@ -7,12 +7,12 @@ import com.craftaro.skyblock.api.visit.Visit;
 import com.craftaro.skyblock.island.IslandCoop;
 import com.craftaro.skyblock.island.IslandPermission;
 import com.craftaro.skyblock.island.IslandStatus;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.google.common.base.Preconditions;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.WeatherType;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -144,14 +144,14 @@ public class Island {
     /**
      * @return The biome set for the Island
      */
-    public Biome getBiome() {
+    public XBiome getBiome() {
         return this.handle.getBiome();
     }
 
     /**
      * Set the biome for the Island
      */
-    public void setBiome(Biome biome) {
+    public void setBiome(XBiome biome) {
         Preconditions.checkArgument(biome != null, "Cannot set biome to null biome");
         this.handle.setBiome(biome);
     }

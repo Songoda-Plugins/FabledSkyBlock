@@ -1,6 +1,6 @@
 package com.craftaro.skyblock.command.commands.admin;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XSound;
 import com.craftaro.skyblock.SkyBlock;
 import com.craftaro.skyblock.biome.BiomeManager;
@@ -67,10 +67,10 @@ public class SetBiomeCommand extends SubCommand {
                 world = IslandWorld.NORMAL;
             }
 
-            CompatibleBiome biome = null;
-            for (CompatibleBiome cbiome : CompatibleBiome.values()) {
-                if (cbiome.isCompatible() && cbiome.name().equals(biomeName)) {
-                    biome = cbiome;
+            XBiome biome = null;
+            for (XBiome xBiome : XBiome.values()) {
+                if (xBiome.isSupported() && xBiome.name().equals(biomeName)) {
+                    biome = xBiome;
                     break;
                 }
             }
@@ -97,7 +97,7 @@ public class SetBiomeCommand extends SubCommand {
                         Island island = islandManager.getIsland(Bukkit.getServer().getOfflinePlayer(islandOwnerUUID));
                         biomeManager.setBiome(island, world, biome, null);
                         if (world == IslandWorld.NORMAL) {
-                            island.setBiome(biome.getBiome());
+                            island.setBiome(biome);
                         }
                     } else {
                         islandManager.loadIsland(Bukkit.getOfflinePlayer(islandOwnerUUID));
@@ -107,11 +107,11 @@ public class SetBiomeCommand extends SubCommand {
                                     configLoad.getString("Command.Island.Admin.SetBiome.Island.Data.Message"));
                             soundManager.playSound(sender, XSound.BLOCK_ANVIL_LAND);
                         } else {
-                            CompatibleBiome finalBiome = biome;
+                            XBiome finalBiome = biome;
                             IslandWorld finalWorld = world;
                             biomeManager.setBiome(island, world, biome, () -> {
                                 if (finalWorld == IslandWorld.NORMAL) {
-                                    island.setBiome(finalBiome.getBiome());
+                                    island.setBiome(finalBiome);
                                 }
                             });
                         }

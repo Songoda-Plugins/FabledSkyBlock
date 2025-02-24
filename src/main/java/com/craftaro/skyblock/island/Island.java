@@ -1,7 +1,7 @@
 package com.craftaro.skyblock.island;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
 import com.craftaro.core.nms.world.NmsWorldBorder;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XSound;
 import com.craftaro.core.utils.NumberUtils;
 import com.craftaro.core.utils.PlayerUtils;
@@ -32,7 +32,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.WeatherType;
-import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -479,13 +478,13 @@ public class Island {
                 && !(blockLocation.getBlockZ() < (islandLocation.getBlockZ() - halfSize - 1));
     }
 
-    public Biome getBiome() {
-        return CompatibleBiome.getBiome(this.plugin.getFileManager().getConfig(
+    public XBiome getBiome() {
+        return XBiome.of(this.plugin.getFileManager().getConfig(
                         new File(new File(this.plugin.getDataFolder(), "island-data"), this.ownerUUID.toString() + ".yml"))
-                .getFileConfiguration().getString("Biome.Type")).getBiome();
+                .getFileConfiguration().getString("Biome.Type")).get();
     }
 
-    public void setBiome(Biome biome) {
+    public void setBiome(XBiome biome) {
         IslandBiomeChangeEvent islandBiomeChangeEvent = new IslandBiomeChangeEvent(getAPIWrapper(), biome);
         Bukkit.getServer().getPluginManager().callEvent(islandBiomeChangeEvent);
 

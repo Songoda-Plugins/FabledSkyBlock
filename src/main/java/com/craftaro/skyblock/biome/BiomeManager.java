@@ -1,11 +1,11 @@
 package com.craftaro.skyblock.biome;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
 import com.craftaro.skyblock.SkyBlock;
 import com.craftaro.skyblock.blockscanner.ChunkLoader;
 import com.craftaro.skyblock.island.Island;
 import com.craftaro.skyblock.island.IslandEnvironment;
 import com.craftaro.skyblock.island.IslandWorld;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -40,7 +40,7 @@ public class BiomeManager {
         this.updatingIslands.remove(island);
     }
 
-    public void setBiome(Island island, IslandWorld world, CompatibleBiome biome, CompleteTask task) {
+    public void setBiome(Island island, IslandWorld world, XBiome biome, CompleteTask task) {
         addUpdatingIsland(island);
 
         if (island.getLocation(world, IslandEnvironment.ISLAND) == null) {
@@ -58,7 +58,7 @@ public class BiomeManager {
                     if (chunk != null) {
                         biome.setBiome(chunk);
                     }
-                } catch (IllegalAccessException | InvocationTargetException ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 

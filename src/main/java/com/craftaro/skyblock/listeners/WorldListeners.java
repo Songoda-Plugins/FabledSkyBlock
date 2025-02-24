@@ -1,15 +1,18 @@
 package com.craftaro.skyblock.listeners;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
 import com.craftaro.skyblock.SkyBlock;
 import com.craftaro.skyblock.biome.BiomeManager;
 import com.craftaro.skyblock.island.Island;
 import com.craftaro.skyblock.island.IslandManager;
 import com.craftaro.skyblock.island.IslandWorld;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+
+import java.lang.reflect.Method;
 
 public class WorldListeners implements Listener {
     private final SkyBlock plugin;
@@ -32,16 +35,33 @@ public class WorldListeners implements Listener {
                 case NORMAL:
                     break;
                 case NETHER:
-                    if (to.getBlock().getBiome() != CompatibleBiome.NETHER_WASTES.getBiome()) {
-                        biomeManager.setBiome(island, IslandWorld.NETHER, CompatibleBiome.NETHER_WASTES, null);
+                    if (isBiome(to.getBlock(), XBiome.NETHER_WASTES)) {
+                        biomeManager.setBiome(island, IslandWorld.NETHER, XBiome.NETHER_WASTES, null);
                     }
                     break;
                 case THE_END:
-                    if (to.getBlock().getBiome() != CompatibleBiome.THE_END.getBiome()) {
-                        biomeManager.setBiome(island, IslandWorld.END, CompatibleBiome.THE_END, null);
+                    if (isBiome(to.getBlock(), XBiome.THE_END)) {
+                        biomeManager.setBiome(island, IslandWorld.END, XBiome.THE_END, null);
                     }
                     break;
             }
         }
+    }
+
+    private boolean isBiome(Block block, XBiome biome) {
+        Object biomeObject = block.getBiome(); //Can be a paper registry type
+        Method nameMethod = null;
+        try {
+            nameMethod = biomeObject.getClass().getMethod("name");
+        } catch (NoSuchMethodException ignored) {
+        }
+        if (nameMethod != null) {
+            try {
+                return biome.name().equals((String) nameMethod.invoke(biomeObject));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
     }
 }

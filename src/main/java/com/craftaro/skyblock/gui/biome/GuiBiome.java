@@ -1,8 +1,8 @@
 package com.craftaro.skyblock.gui.biome;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
 import com.craftaro.core.gui.Gui;
 import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.third_party.com.cryptomorin.xseries.XSound;
 import com.craftaro.core.utils.TextUtils;
@@ -19,15 +19,18 @@ import com.craftaro.skyblock.island.IslandWorld;
 import com.craftaro.skyblock.message.MessageManager;
 import com.craftaro.skyblock.sound.SoundManager;
 import com.craftaro.skyblock.utils.NumberUtil;
+import com.craftaro.third_party.com.cryptomorin.xseries.base.XModule;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 public class GuiBiome extends Gui {
     private final SkyBlock plugin;
@@ -88,29 +91,27 @@ public class GuiBiome extends Gui {
         }
 
         List<BiomeIcon> biomes = new ArrayList<>();
-        for (CompatibleBiome biome : CompatibleBiome.getCompatibleBiomes()) {
-            if (biome.isCompatible()) {
-                BiomeIcon icon = new BiomeIcon(this.plugin, biome);
-                if (icon.biome != null &&
-                        (!icon.permission ||
-                                this.player.hasPermission("fabledskyblock.biome." + biome.name().toLowerCase()))) {
-                    switch (this.world) {
-                        case NORMAL:
-                            if (icon.normal) {
-                                biomes.add(icon);
-                            }
-                            break;
-                        case NETHER:
-                            if (icon.nether) {
-                                biomes.add(icon);
-                            }
-                            break;
-                        case END:
-                            if (icon.end) {
-                                biomes.add(icon);
-                            }
-                            break;
-                    }
+        for (XBiome biome : Arrays.stream(XBiome.values()).filter(XModule::isSupported).collect(Collectors.toList())) {
+            BiomeIcon icon = new BiomeIcon(this.plugin, biome);
+            if (icon.biome != null &&
+                    (!icon.permission ||
+                            this.player.hasPermission("fabledskyblock.biome." + biome.name().toLowerCase()))) {
+                switch (this.world) {
+                    case NORMAL:
+                        if (icon.normal) {
+                            biomes.add(icon);
+                        }
+                        break;
+                    case NETHER:
+                        if (icon.nether) {
+                            biomes.add(icon);
+                        }
+                        break;
+                    case END:
+                        if (icon.end) {
+                            biomes.add(icon);
+                        }
+                        break;
                 }
             }
         }
@@ -151,7 +152,7 @@ public class GuiBiome extends Gui {
                     continue;
                 }
 
-                if (icon.biome.getBiome() == this.island.getBiome()) {
+                if (icon.biome == this.island.getBiome()) {
                     icon.enchant();
                 }
 
@@ -188,7 +189,7 @@ public class GuiBiome extends Gui {
                                 soundManager.playSound(this.player, XSound.ENTITY_VILLAGER_YES);
                             }
                         });
-                        this.island.setBiome(icon.biome.getBiome()); // FIXME: A event is fired with has a setBiome method...
+                        this.island.setBiome(icon.biome); // FIXME: A event is fired with has a setBiome method...
                         this.island.save();
                     });
 

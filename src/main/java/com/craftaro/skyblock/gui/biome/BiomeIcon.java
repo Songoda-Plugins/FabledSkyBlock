@@ -1,7 +1,7 @@
 package com.craftaro.skyblock.gui.biome;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
 import com.craftaro.core.compatibility.CompatibleMaterial;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.skyblock.SkyBlock;
 import org.bukkit.ChatColor;
@@ -14,14 +14,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Optional;
 
 public class BiomeIcon {
-    public final CompatibleBiome biome;
+    public final XBiome biome;
     public final ItemStack displayItem;
     public final boolean permission;
     public final boolean normal;
     public final boolean nether;
     public final boolean end;
 
-    public BiomeIcon(SkyBlock plugin, CompatibleBiome biome) {
+    public BiomeIcon(SkyBlock plugin, XBiome biome) {
         this.biome = biome;
         FileConfiguration biomeConfig = plugin.getBiomes();
         Optional<XMaterial> tempMat = CompatibleMaterial.getMaterial(biomeConfig.getString("Biomes." + biome.name() + ".DisplayItem.Material"));
@@ -45,7 +45,7 @@ public class BiomeIcon {
         this.end = biomeConfig.getBoolean("Biomes." + biome.name() + ".End", false);
     }
 
-    public BiomeIcon(CompatibleBiome biome, ItemStack displayItem, String displayName, boolean permission, boolean normal, boolean nether, boolean end) {
+    public BiomeIcon(XBiome biome, ItemStack displayItem, String displayName, boolean permission, boolean normal, boolean nether, boolean end) {
         this.biome = biome;
         this.displayItem = displayItem;
         ItemMeta im = displayItem.getItemMeta();

@@ -1,16 +1,16 @@
 package com.craftaro.skyblock.api.event.island;
 
 import com.craftaro.skyblock.api.island.Island;
-import org.bukkit.block.Biome;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 public class IslandBiomeChangeEvent extends IslandEvent {
     private static final HandlerList HANDLERS = new HandlerList();
 
-    private Biome biome;
+    private XBiome biome;
 
-    public IslandBiomeChangeEvent(Island island, Biome biome) {
+    public IslandBiomeChangeEvent(Island island, XBiome biome) {
         super(island);
         this.biome = biome;
     }
@@ -19,11 +19,11 @@ public class IslandBiomeChangeEvent extends IslandEvent {
         return HANDLERS;
     }
 
-    public Biome getBiome() {
+    public XBiome getBiome() {
         return this.biome;
     }
 
-    public void setBiome(Biome biome) {
+    public void setBiome(XBiome biome) {
         this.biome = biome;
     }
 

@@ -3,7 +3,6 @@ package com.craftaro.skyblock.island;
 import com.bekvon.bukkit.residence.Residence;
 import com.bekvon.bukkit.residence.containers.Flags;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
-import com.craftaro.core.compatibility.CompatibleBiome;
 import com.craftaro.core.compatibility.CompatibleMaterial;
 import com.craftaro.core.compatibility.MajorServerVersion;
 import com.craftaro.core.compatibility.ServerVersion;
@@ -42,6 +41,7 @@ import com.craftaro.skyblock.utils.world.LocationUtil;
 import com.craftaro.skyblock.utils.world.block.BlockDegreesType;
 import com.craftaro.skyblock.visit.VisitManager;
 import com.craftaro.skyblock.world.WorldManager;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.third_party.com.cryptomorin.xseries.XSound;
 import com.eatthepath.uuid.FastUUID;
@@ -286,13 +286,13 @@ public class IslandManager {
         }, configLoad.getInt("Island.Creation.TeleportTimeout") * 20);
 
         String biomeName = this.plugin.getConfiguration().getString("Island.Biome.Default.Type").toUpperCase();
-        CompatibleBiome cBiome;
+        XBiome xBiome;
         try {
-            cBiome = CompatibleBiome.valueOf(biomeName);
+            xBiome = XBiome.of(biomeName).get();
         } catch (Exception ex) {
-            cBiome = CompatibleBiome.PLAINS;
+            xBiome = XBiome.PLAINS;
         }
-        final CompatibleBiome compatibleBiome = cBiome;
+        final XBiome compatibleBiome = xBiome;
 
         Bukkit.getServer().getScheduler().runTaskLater(this.plugin, () ->
                 this.plugin.getBiomeManager().setBiome(island, IslandWorld.NORMAL, compatibleBiome, () -> {

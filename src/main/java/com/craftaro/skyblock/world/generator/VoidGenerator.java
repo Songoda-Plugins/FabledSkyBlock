@@ -1,14 +1,13 @@
 package com.craftaro.skyblock.world.generator;
 
-import com.craftaro.core.compatibility.CompatibleBiome;
 import com.craftaro.core.compatibility.MajorServerVersion;
 import com.craftaro.core.compatibility.ServerVersion;
+import com.craftaro.third_party.com.cryptomorin.xseries.XBiome;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.skyblock.SkyBlock;
 import com.craftaro.skyblock.island.IslandWorld;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.generator.BlockPopulator;
@@ -38,30 +37,26 @@ public class VoidGenerator extends ChunkGenerator {
         final Configuration configLoad = this.plugin.getConfiguration();
         final ConfigurationSection worldSection = configLoad.getConfigurationSection("Island.World");
 
-        Biome biome;
+        XBiome biome;
 
         switch (world.getEnvironment()) {
             case NORMAL:
-                biome = Arrays.stream(CompatibleBiome.values())
-                        .filter(compatibleBiome -> compatibleBiome.name().equals(configLoad.getString("Island.Biome.Default.Type", "PLAINS").toUpperCase()) && compatibleBiome.isCompatible())
+                biome = Arrays.stream(XBiome.values())
+                        .filter(xBiome -> xBiome.name().equals(configLoad.getString("Island.Biome.Default.Type", "PLAINS").toUpperCase()) && xBiome.isSupported())
                         .findFirst()
-                        .orElse(CompatibleBiome.PLAINS).getBiome();
+                        .orElse(XBiome.PLAINS);
                 break;
             case NETHER:
-                biome = CompatibleBiome.NETHER_WASTES.getBiome();
+                biome = XBiome.NETHER_WASTES;
                 break;
             case THE_END:
-                biome = CompatibleBiome.THE_END.getBiome();
+                biome = XBiome.THE_END;
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + world.getEnvironment());
         }
 
-        if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_16)) { // TODO Should be 1.15 but it works fine there
-            setChunkBiome3D(biome, biomeGrid, world);
-        } else {
-            setChunkBiome2D(biome, biomeGrid);
-        }
+        setChunkBiome(biome, world, chunkX, chunkZ);
 
         ConfigurationSection section = worldSection.getConfigurationSection(this.islandWorld.getFriendlyName());
 
@@ -101,24 +96,7 @@ public class VoidGenerator extends ChunkGenerator {
         }
     }
 
-    // Do not use - Too laggy
-    private void setChunkBiome3D(Biome biome, BiomeGrid grid, World world) {
-        for (int x = 0; x < 16; ++x) {
-            for (int z = 0; z < 16; ++z) {
-                for (int y = 0; y < world.getMaxHeight(); ++y) {
-                    grid.setBiome(z, y, z, biome);
-                }
-            }
-        }
-    }
-
-    private void setChunkBiome2D(Biome biome, BiomeGrid grid) {
-        for (int x = 0; x < 16; ++x) {
-            for (int z = 0; z < 16; ++z) {
-                if (!grid.getBiome(x, z).equals(biome)) {
-                    grid.setBiome(x, z, biome);
-                }
-            }
-        }
+    private void setChunkBiome(XBiome biome, World world, int chunkX, int chunkZ) {
+        biome.setBiome(world.getChunkAt(chunkX, chunkZ));
     }
 }
