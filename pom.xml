@@ -3,7 +3,7 @@
 
     <groupId>com.craftaro</groupId>
     <artifactId>FabledSkyBlock</artifactId>
-    <version>3.4.0</version>
+    <version>3.5.0</version>
 
     <name>FabledSkyBlock</name>
     <description>Bring your server's SkyBlock experience to the next level with the ability to fine-tune island settings, create custom islands, view leaderboards, and much more</description>
