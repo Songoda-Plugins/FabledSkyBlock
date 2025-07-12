@@ -344,7 +344,7 @@ public class BlockListeners implements Listener {
             }
 
             // Specific check for beds using getBlockData() for versions 1.13 and above
-            if (!isObstructing && event.getBlock().getBlockData() instanceof org.bukkit.block.data.type.Bed && MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13)) {
+            if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13) && !isObstructing && event.getBlock().getBlockData() instanceof org.bukkit.block.data.type.Bed) {
                 org.bukkit.block.data.type.Bed bedData = (org.bukkit.block.data.type.Bed) event.getBlock().getBlockData();
                 BlockFace bedDirection = bedData.getFacing();
                 org.bukkit.block.Block bedBlock = block.getRelative(bedDirection);
