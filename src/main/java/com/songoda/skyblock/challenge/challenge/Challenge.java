@@ -504,8 +504,7 @@ public class Challenge {
                     is = new ItemStack(Material.SPLASH_POTION, peer.getValue().getValue());
                 }
                 PotionMeta pm = (PotionMeta) is.getItemMeta();
-                pm.setBasePotionData(new PotionData(peer.getKey(), data == 1 || data == 4 || data == 7,
-                        data == 2 || data == 5 || data == 8));
+                pm.setBasePotionData(new PotionData(peer.getKey(), data == 1 || data == 4 || data == 7, data == 2 || data == 5 || data == 8));
                 is.setItemMeta(pm);
 
                 // Add item or drop if inventory is full
