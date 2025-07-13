@@ -28,6 +28,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 import java.io.File;
 import java.io.IOException;
@@ -244,7 +245,8 @@ public class Upgrade {
 
                 if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13)) {
                     PotionMeta pm = (PotionMeta) speedPotion.getItemMeta();
-                    pm.setBasePotionData(new PotionData(XPotion.SPEED.getPotionType()));
+                    PotionType type = XPotion.SPEED.getPotionType();
+                    pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
                     speedPotion.setItemMeta(pm);
                 } else {
                     speedPotion = new ItemStack(Material.POTION, 1, (short) 8194);
@@ -262,7 +264,8 @@ public class Upgrade {
 
                 if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13)) {
                     PotionMeta pm = (PotionMeta) jumpPotion.getItemMeta();
-                    pm.setBasePotionData(new PotionData(XPotion.JUMP_BOOST.getPotionType()));
+                    PotionType type = XPotion.JUMP_BOOST.getPotionType();
+                    pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
                     jumpPotion.setItemMeta(pm);
                 } else {
                     jumpPotion = new ItemStack(Material.POTION, 1, (short) 8203);
