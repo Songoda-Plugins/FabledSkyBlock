@@ -504,7 +504,23 @@ public class Challenge {
                     is = new ItemStack(Material.SPLASH_POTION, peer.getValue().getValue());
                 }
                 PotionMeta pm = (PotionMeta) is.getItemMeta();
-                pm.setBasePotionData(new PotionData(peer.getKey(), data == 1 || data == 4 || data == 7, data == 2 || data == 5 || data == 8));
+                PotionType potionType = peer.getKey();
+                boolean extended = data == 1 || data == 4 || data == 7;
+                boolean upgraded = data == 2 || data == 5 || data == 8;
+                String typeName = potionType.name();
+                if (typeName.startsWith("LONG_")) {
+                    potionType = PotionType.valueOf(typeName.substring(5));
+                    extended = true;
+                    upgraded = false;
+                } else if (typeName.startsWith("STRONG_")) {
+                    potionType = PotionType.valueOf(typeName.substring(7));
+                    upgraded = true;
+                    extended = false;
+                }
+                if (!potionType.isExtendable()) {
+                    extended = false;
+                }
+                pm.setBasePotionData(new PotionData(potionType, extended, upgraded));
                 is.setItemMeta(pm);
 
                 // Add item or drop if inventory is full

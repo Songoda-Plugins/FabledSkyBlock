@@ -503,7 +503,22 @@ public class Upgrade {
 
                         if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_10)) {
                             PotionType type = XPotion.SPEED.getPotionType();
-                            pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
+                            boolean extended = true;
+                            boolean upgraded = false;
+                            String typeName = type.name();
+                            if (typeName.startsWith("LONG_")) {
+                                type = PotionType.valueOf(typeName.substring(5));
+                                extended = true;
+                                upgraded = false;
+                            } else if (typeName.startsWith("STRONG_")) {
+                                type = PotionType.valueOf(typeName.substring(7));
+                                upgraded = true;
+                                extended = false;
+                            }
+                            if (!type.isExtendable()) {
+                                extended = false;
+                            }
+                            pm.setBasePotionData(new PotionData(type, extended, upgraded));
                         } else {
                             pm.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 1, 0), true);
                         }
@@ -558,7 +573,22 @@ public class Upgrade {
                         if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_9)) {
                             if (MajorServerVersion.isServerVersionAtOrBelow(MajorServerVersion.V1_20) && ServerVersion.isServerVersionBelow(ServerVersion.V1_20_6)) {
                                 PotionType type = XPotion.JUMP_BOOST.getPotionType();
-                                pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
+                                boolean extended = true;
+                                boolean upgraded = false;
+                                String typeName = type.name();
+                                if (typeName.startsWith("LONG_")) {
+                                    type = PotionType.valueOf(typeName.substring(5));
+                                    extended = true;
+                                    upgraded = false;
+                                } else if (typeName.startsWith("STRONG_")) {
+                                    type = PotionType.valueOf(typeName.substring(7));
+                                    upgraded = true;
+                                    extended = false;
+                                }
+                                if (!type.isExtendable()) {
+                                    extended = false;
+                                }
+                                pm.setBasePotionData(new PotionData(type, extended, upgraded));
                             } else {
                                 pm.setBasePotionType(XPotion.JUMP_BOOST.getPotionType());
                             }
