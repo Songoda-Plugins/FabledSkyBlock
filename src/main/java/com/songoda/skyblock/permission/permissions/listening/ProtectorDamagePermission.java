@@ -12,7 +12,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class ProtectorDamagePermission extends ListeningPermission {
     public ProtectorDamagePermission(SkyBlock plugin) {
-        super("ProtectorDamage", XMaterial.CARVED_PUMPKIN, PermissionType.ISLAND);
+        super("ProtectorDamage", XMaterial.IRON_SWORD, PermissionType.ISLAND);
     }
 
     @PermissionHandler
