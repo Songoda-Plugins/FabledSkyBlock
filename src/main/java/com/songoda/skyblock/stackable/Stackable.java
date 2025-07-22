@@ -24,7 +24,7 @@ public class Stackable {
 
     private Location location;
     private XMaterial material;
-    private int size = 2;
+    private int size = 1;
     private ArmorStand display;
     private int maxSize;
 
