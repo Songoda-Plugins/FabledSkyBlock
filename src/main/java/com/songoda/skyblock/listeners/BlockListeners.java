@@ -895,7 +895,7 @@ public class BlockListeners implements Listener {
 
         Material type = state.getType();
 
-        if (type != Material.COBBLESTONE && type != Material.STONE && type != Material.BASALT) {
+        if (type != Material.COBBLESTONE && type != Material.STONE && (MajorServerVersion.isServerVersionBelow(MajorServerVersion.V1_16) || type != Material.BASALT)) {
             return false;
         }
 
