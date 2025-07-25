@@ -2,6 +2,7 @@ package com.songoda.skyblock.challenge.challenge;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.hooks.economies.Economy;
+import com.songoda.skyblock.utils.version.PotionUtils;
 import com.songoda.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.skyblock.SkyBlock;
 import com.songoda.skyblock.bank.BankManager;
@@ -504,7 +505,7 @@ public class Challenge {
                     is = new ItemStack(Material.SPLASH_POTION, peer.getValue().getValue());
                 }
                 PotionMeta pm = (PotionMeta) is.getItemMeta();
-                pm.setBasePotionData(new PotionData(peer.getKey(), data == 1 || data == 4 || data == 7, data == 2 || data == 5 || data == 8));
+                PotionUtils.setPotionData_V1_13(pm, peer.getKey());
                 is.setItemMeta(pm);
 
                 // Add item or drop if inventory is full

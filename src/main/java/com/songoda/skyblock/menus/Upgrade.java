@@ -3,6 +3,7 @@ package com.songoda.skyblock.menus;
 import com.songoda.core.compatibility.MajorServerVersion;
 import com.songoda.core.compatibility.ServerVersion;
 import com.songoda.core.hooks.economies.Economy;
+import com.songoda.skyblock.utils.version.PotionUtils;
 import com.songoda.third_party.com.cryptomorin.xseries.XItemFlag;
 import com.songoda.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.third_party.com.cryptomorin.xseries.XPotion;
@@ -502,8 +503,7 @@ public class Upgrade {
                         PotionMeta pm = (PotionMeta) potion.getItemMeta();
 
                         if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_10)) {
-                            PotionType type = XPotion.SPEED.getPotionType();
-                            pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
+                            PotionUtils.setPotionData_V1_13(pm, XPotion.SPEED.getPotionType());
                         } else {
                             pm.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 1, 0), true);
                         }
@@ -557,8 +557,7 @@ public class Upgrade {
 
                         if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_9)) {
                             if (MajorServerVersion.isServerVersionAtOrBelow(MajorServerVersion.V1_20) && ServerVersion.isServerVersionBelow(ServerVersion.V1_20_6)) {
-                                PotionType type = XPotion.JUMP_BOOST.getPotionType();
-                                pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
+                                PotionUtils.setPotionData_V1_13(pm, XPotion.JUMP_BOOST.getPotionType());
                             } else {
                                 pm.setBasePotionType(XPotion.JUMP_BOOST.getPotionType());
                             }

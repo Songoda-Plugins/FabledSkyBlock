@@ -3,6 +3,7 @@ package com.songoda.skyblock.menus.admin;
 import com.songoda.core.compatibility.MajorServerVersion;
 import com.songoda.core.compatibility.ServerVersion;
 import com.songoda.core.gui.AnvilGui;
+import com.songoda.skyblock.utils.version.PotionUtils;
 import com.songoda.third_party.com.cryptomorin.xseries.XItemFlag;
 import com.songoda.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.third_party.com.cryptomorin.xseries.XPotion;
@@ -245,8 +246,7 @@ public class Upgrade {
 
                 if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13)) {
                     PotionMeta pm = (PotionMeta) speedPotion.getItemMeta();
-                    PotionType type = XPotion.SPEED.getPotionType();
-                    pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
+                    PotionUtils.setPotionData_V1_13(pm, XPotion.SPEED.getPotionType());
                     speedPotion.setItemMeta(pm);
                 } else {
                     speedPotion = new ItemStack(Material.POTION, 1, (short) 8194);
@@ -264,8 +264,7 @@ public class Upgrade {
 
                 if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13)) {
                     PotionMeta pm = (PotionMeta) jumpPotion.getItemMeta();
-                    PotionType type = XPotion.JUMP_BOOST.getPotionType();
-                    pm.setBasePotionData(new PotionData(type, true, false)); // Use extended or upgraded as needed
+                    PotionUtils.setPotionData_V1_13(pm, XPotion.JUMP_BOOST.getPotionType());
                     jumpPotion.setItemMeta(pm);
                 } else {
                     jumpPotion = new ItemStack(Material.POTION, 1, (short) 8203);
