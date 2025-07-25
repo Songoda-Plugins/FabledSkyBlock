@@ -3,6 +3,7 @@ package com.songoda.skyblock.menus.admin;
 import com.songoda.core.compatibility.MajorServerVersion;
 import com.songoda.core.compatibility.ServerVersion;
 import com.songoda.core.gui.AnvilGui;
+import com.songoda.skyblock.utils.version.PotionUtils;
 import com.songoda.third_party.com.cryptomorin.xseries.XItemFlag;
 import com.songoda.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.third_party.com.cryptomorin.xseries.XPotion;
@@ -245,23 +246,7 @@ public class Upgrade {
 
                 if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13)) {
                     PotionMeta pm = (PotionMeta) speedPotion.getItemMeta();
-                    PotionType type = XPotion.SPEED.getPotionType();
-                    boolean extended = true;
-                    boolean upgraded = false;
-                    String typeName = type.name();
-                    if (typeName.startsWith("LONG_")) {
-                        type = PotionType.valueOf(typeName.substring(5));
-                        extended = true;
-                        upgraded = false;
-                    } else if (typeName.startsWith("STRONG_")) {
-                        type = PotionType.valueOf(typeName.substring(7));
-                        upgraded = true;
-                        extended = false;
-                    }
-                    if (!type.isExtendable()) {
-                        extended = false;
-                    }
-                    pm.setBasePotionData(new PotionData(type, extended, upgraded));
+                    PotionUtils.setPotionData_V1_13(pm, XPotion.SPEED.getPotionType());
                     speedPotion.setItemMeta(pm);
                 } else {
                     speedPotion = new ItemStack(Material.POTION, 1, (short) 8194);
@@ -279,23 +264,7 @@ public class Upgrade {
 
                 if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13)) {
                     PotionMeta pm = (PotionMeta) jumpPotion.getItemMeta();
-                    PotionType type = XPotion.JUMP_BOOST.getPotionType();
-                    boolean extended = true;
-                    boolean upgraded = false;
-                    String typeName = type.name();
-                    if (typeName.startsWith("LONG_")) {
-                        type = PotionType.valueOf(typeName.substring(5));
-                        extended = true;
-                        upgraded = false;
-                    } else if (typeName.startsWith("STRONG_")) {
-                        type = PotionType.valueOf(typeName.substring(7));
-                        upgraded = true;
-                        extended = false;
-                    }
-                    if (!type.isExtendable()) {
-                        extended = false;
-                    }
-                    pm.setBasePotionData(new PotionData(type, extended, upgraded));
+                    PotionUtils.setPotionData_V1_13(pm, XPotion.JUMP_BOOST.getPotionType());
                     jumpPotion.setItemMeta(pm);
                 } else {
                     jumpPotion = new ItemStack(Material.POTION, 1, (short) 8203);
