@@ -166,6 +166,7 @@ public class PermissionManager {
                 new FishingPermission(plugin),
                 new CauldronPermission(plugin),
                 new ProtectorDamagePermission(plugin),
+                new SignEditPermission(plugin),
 
                 // Basic
                 new MemberPermission(),
@@ -197,10 +198,6 @@ public class PermissionManager {
 
         if (plugin.getConfiguration().getBoolean("Island.Settings.Hunger.Enable")) {
             registerPermission(new HungerPermission(plugin));
-        }
-
-        if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_20)) {
-            registerPermission(new SignEditPermission(plugin));
         }
 
         if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_21)) {
