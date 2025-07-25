@@ -242,8 +242,7 @@ public class InteractListeners implements Listener {
 
                     //Fixing Dupe that was found when stack hits the limit and player gets whole (applied stack) back.
                     if (stackable == null) {
-                        stackable = new Stackable(location, blockType.get(), maxStackSize);
-                        stackableManager.addStack(stackable);
+                        stackableManager.addStack(stackable = new Stackable(location, blockType.get(), maxStackSize));
 
                         int spaceAvailable = stackable.getMaxSize() - stackable.getSize();
                         if (itemAmount <= spaceAvailable) {
@@ -253,7 +252,6 @@ public class InteractListeners implements Listener {
                             int excessAmount = itemAmount - spaceAvailable;
                             // Return the excess items to the player
                             player.getInventory().addItem(new ItemStack(blockType.get().parseMaterial(), excessAmount));
-                            event.setCancelled(true);
                         }
                     } else {
                         stackable.setMaxSize(maxStackSize);
@@ -266,14 +264,10 @@ public class InteractListeners implements Listener {
                             int excessAmount = itemAmount - spaceAvailable;
                             // Return the excess items to the player
                             player.getInventory().addItem(new ItemStack(blockType.get().parseMaterial(), excessAmount));
-                            event.setCancelled(true);
                         }
                     }
 
-
-                    // Disables interaction
                     event.setCancelled(true);
-
                 } else {
                     if (stackable == null) {
                         stackableManager.addStack(stackable = new Stackable(location, blockType.get()));
