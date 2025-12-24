@@ -136,7 +136,7 @@
         <dependency>
             <groupId>com.songoda</groupId>
             <artifactId>SongodaCore</artifactId>
-            <version>3.9.8-SNAPSHOT</version>
+            <version>3.9.9-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
