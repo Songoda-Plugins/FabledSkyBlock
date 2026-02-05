@@ -1158,6 +1158,8 @@ Menu:
             Displayname: '&aCrop Trampling'
           Workbench:
             Displayname: '&aWorkbench Use'
+          Crafter:
+            Displayname: '&aCrafter Use'
           ArmorStandUse:
             Displayname: '&aArmorStand Use'
           DragonEggUse:
@@ -1183,6 +1185,8 @@ Menu:
             Displayname: '&aGate Use'
           Door:
             Displayname: '&aDoor Use'
+          Trapdoor:
+            Displayname: '&aTrapdoor Use'
           Jukebox:
             Displayname: '&aJukebox Use'
           PvP:
@@ -1191,6 +1195,8 @@ Menu:
             Displayname: '&aNoteblock use'
           Cauldron:
             Displayname: '&aCauldron use'
+          EditSign:
+            Displayname: '&aEdit Signs'
           Minecart:
             Displayname: '&aMinecart'
           Damage:

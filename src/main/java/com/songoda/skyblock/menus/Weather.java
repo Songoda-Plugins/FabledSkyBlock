@@ -209,6 +209,14 @@ public class Weather {
                 weatherChoice = configLoad.getString("Menu.Weather.Item.Weather.Choice.Clear");
             }
 
+            String weatherName = island.getWeather() != WeatherType.CLEAR
+                    ? configLoad.getString("Menu.Weather.Item.Weather.Choice.Downfall")
+                    : configLoad.getString("Menu.Weather.Item.Weather.Choice.Clear");
+
+            if (weatherName == null || weatherName.isEmpty()) {
+                weatherName = island.getWeatherName();
+            }
+
             if (island.isWeatherSynchronized()) {
                 synchronisedChoice = configLoad.getString("Menu.Weather.Item.Synchronised.Choice.Disable");
             } else {
@@ -220,7 +228,7 @@ public class Weather {
                     configLoad.getStringList("Menu.Weather.Item.Info.Lore." + (island.isWeatherSynchronized() ? "Synchronised" : "Unsynchronised")),
                     new Placeholder[]{new Placeholder("%synchronised", weatherSynchronised),
                             new Placeholder("%time_name", timeName), new Placeholder("%time", "" + island.getTime()),
-                            new Placeholder("%weather", island.getWeatherName())},
+                            new Placeholder("%weather", weatherName)},
                     null, null), 0);
             nInv.addItem(nInv.createItem(XMaterial.BLACK_STAINED_GLASS_PANE.parseItem(),
                     configLoad.getString("Menu.Weather.Item.Barrier.Displayname"), null, null, null, null), 1);
