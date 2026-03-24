@@ -237,7 +237,7 @@ public class Challenge {
             private int findSimilar(Player p, XMaterial material) {
                 int amountFound = 0;
                 for (ItemStack item : p.getInventory().getContents()) {
-                    if (material.isSimilar(item)) {
+                    if (item != null && material.isSimilar(item)) {
                         amountFound += item.getAmount();
                     }
                 }

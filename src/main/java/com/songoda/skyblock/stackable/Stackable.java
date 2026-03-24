@@ -1,7 +1,6 @@
 package com.songoda.skyblock.stackable;
 
 import com.songoda.core.compatibility.MajorServerVersion;
-import com.songoda.core.compatibility.ServerVersion;
 import com.songoda.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.third_party.com.cryptomorin.xseries.XSound;
 import com.songoda.core.utils.NumberUtils;

@@ -2,7 +2,6 @@ package com.songoda.skyblock.listeners;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.compatibility.MajorServerVersion;
-import com.songoda.core.compatibility.ServerVersion;
 import com.songoda.third_party.com.cryptomorin.xseries.XBlock;
 import com.songoda.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.skyblock.SkyBlock;
