@@ -37,6 +37,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.CreatureSpawner;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Blaze;
@@ -814,8 +816,15 @@ public class BlockListeners implements Listener {
         org.bukkit.block.Block placeLocation = event.getBlock().getRelative(dispenserDirection);
 
         if (XMaterial.WATER_BUCKET.isSimilar(event.getItem())
-                && this.plugin.getConfiguration().getBoolean("Island.Nether.AllowNetherWater", false)) {
-            placeLocation.setType(Material.WATER);
+                && this.plugin.getConfiguration().getBoolean("Island.Nether.AllowNetherWater", false)
+                && worldManager.getIslandWorld(event.getBlock().getWorld()) == IslandWorld.NETHER) {
+            BlockData bd = placeLocation.getBlockData();
+            if(bd instanceof Waterlogged) {
+                ((Waterlogged) bd).setWaterlogged(true);
+                placeLocation.setBlockData(bd);
+            } else {
+                placeLocation.setType(Material.WATER);
+            }
         }
 
         Island island = islandManager.getIslandAtLocation(placeLocation.getLocation());
