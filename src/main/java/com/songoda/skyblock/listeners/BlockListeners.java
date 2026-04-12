@@ -818,8 +818,8 @@ public class BlockListeners implements Listener {
         if (XMaterial.WATER_BUCKET.isSimilar(event.getItem())
                 && this.plugin.getConfiguration().getBoolean("Island.Nether.AllowNetherWater", false)
                 && worldManager.getIslandWorld(event.getBlock().getWorld()) == IslandWorld.NETHER) {
-            BlockData bd = placeLocation.getBlockData();
-            if(bd instanceof Waterlogged) {
+            if (MajorServerVersion.isServerVersionAtLeast(MajorServerVersion.V1_13) && placeLocation.getBlockData() instanceof Waterlogged) {
+                BlockData bd = placeLocation.getBlockData();
                 ((Waterlogged) bd).setWaterlogged(true);
                 placeLocation.setBlockData(bd);
             } else {
