@@ -3,7 +3,7 @@
 
     <groupId>com.songoda</groupId>
     <artifactId>FabledSkyBlock</artifactId>
-    <version>4.7.2</version>
+    <version>4.8.0</version>
 
     <name>FabledSkyBlock</name>
     <description>Bring your server's SkyBlock experience to the next level with the ability to fine-tune island settings, create custom islands, view leaderboards, and much more</description>
@@ -22,7 +22,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.2</version>
 
                 <executions>
                     <execution>
@@ -136,7 +136,7 @@
         <dependency>
             <groupId>com.songoda</groupId>
             <artifactId>SongodaCore</artifactId>
-            <version>3.9.9-SNAPSHOT</version>
+            <version>4.0.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
