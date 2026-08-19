@@ -1,10 +1,23 @@
 <!--suppress HtmlDeprecatedAttribute -->
 <div align="center">
 <img src="docs/Logo.png" width="128px">
+</div>
 
 # FabledSkyBlock
-**Bring your server’s SkyBlock experience to the next level with the ability to fine-tune island settings, create custom islands, view leaderboards, and much more.**
 
+> **[Official FabledSkyBlock website][Plugin page]**
+>
+> For the latest downloads, supported Minecraft versions, documentation,
+> installation instructions, compatibility information, updates, and support,
+> visit the Songoda Reborn page above.
+
+FabledSkyBlock is an open-source Minecraft SkyBlock server plugin developed and
+maintained by **Songoda Reborn**.
+
+It provides customizable player islands, island management, progression, challenges,
+leaderboards, permissions, and extensive server configuration.
+
+<div align="center">
 
 [![Discord][Discord shield]][Discord invite]
 <br>
@@ -13,27 +26,23 @@
 </div>
 
 
-## Download (Marketplace)
-You can visit [our marketplace][Plugin page] to download FabledSkyBlock as well as take a
-look at many other fantastic plugins which are sure to catch your eye.
+## Downloads
+Downloads and supported Minecraft versions are available from the
+[Songoda Reborn plugin page][Plugin page].
 
 ## Documentation
-You can find all the information about FabledSkyBlock, including dependencies, commands, permissions and incompatible
-plugins on [our wiki][Plugin wiki].
-
-Feel free to also contribute to the wiki as a way to help others in the community with using the plugin.
+The [FabledSkyBlock wiki][Plugin wiki] is maintained by Songoda Reborn and covers
+installation, configuration, commands, permissions, dependencies, and compatibility.
 
 ## Support
-If you encounter any issues while using the plugin, feel free to contact us on
-[our Discord server][Discord invite].
+For help with FabledSkyBlock, join our [Discord server][Discord invite].
 
 ## Suggestions
-For suggestions about features you think should be added to the plugin to increase its functionality, feel free to
-create a thread over on [our Discord server][Discord invite].
+Share feature suggestions and feedback through our [Discord server][Discord invite].
 
 
-[Plugin page]: https://songoda.com/product/13
-[Plugin wiki]: https://wiki.songoda.com/FabledSkyBlock-1130f1089702818c94b7ccf68960e160
+[Plugin page]: https://songoda-reborn.com/plugins/fabledskyblock
+[Plugin wiki]: https://songoda-reborn.com/plugins/fabledskyblock/wiki
 [Discord invite]: https://discord.gg/vtuJUfebrd
 
 [Discord shield]: https://img.shields.io/discord/1214289374506917889?color=5865F2&label=Discord&logo=discord&logoColor=5865F2
