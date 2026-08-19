@@ -45,7 +45,7 @@ Share feature suggestions and feedback through our [Discord server][Discord invi
 [Plugin wiki]: https://songoda-reborn.com/plugins/fabledskyblock/wiki
 [Discord invite]: https://discord.gg/vtuJUfebrd
 
-[Discord shield]: https://img.shields.io/discord/1214289374506917889?color=5865F2&label=Discord&logo=discord&logoColor=5865F2
+[Discord shield]: https://img.shields.io/discord/1526667086376603772?color=5865F2&label=Discord&logo=discord&logoColor=5865F2
 [Latest version shield]: https://img.shields.io/badge/dynamic/xml?style=flat&color=blue&logo=github&logoColor=white&label=Latest&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcraftaro%2FFabledSkyBlock%2Fmaster%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'version'%5D
 
 [bStats page]: https://bstats.org/plugin/bukkit/FabledSkyBlock/4544
